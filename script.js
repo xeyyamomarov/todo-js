@@ -20,12 +20,12 @@ let users = [
 function deleteUser(id) {
   let findIndex = users.findIndex((user) => user.id === id);
   users.splice(findIndex, 1);
+  fetchUser();
 }
 
 function changeUser(user, id) {
   users = users.map((item) => (item.id === id ? user : item));
-
-
+  fetchUser();
   closeModal();
 }
 
@@ -45,10 +45,7 @@ function openModal(user) {
       name: changeNameInput.value,
     };
 
-    console.log(users);
     changeUser(editUser, user.id);
-    fetchUser()
-    // userList.textContent = "";
   });
 
   modalContainer.append(changeNameInput, changeBtn, x);
@@ -71,8 +68,6 @@ function userList(user) {
 
   deleteBtn.addEventListener("click", () => {
     deleteUser(user.id);
-    usersList.textContent = "";
-    fetchUser();
   });
 
   editBtn.addEventListener("click", () => {
@@ -83,9 +78,10 @@ function userList(user) {
 }
 
 function fetchUser() {
-   users.map((user) => userList(user));
-
+  usersList.textContent=""
+  users.map((user) => userList(user));
 }
+
 
 function createUser() {
   let newUser = {
